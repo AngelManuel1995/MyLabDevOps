@@ -34,19 +34,19 @@ pipeline{
               steps {
                 nexusArtifactUploader artifacts: [
                     [ 
-                        artifactId: 'VinayDevOpsLab', 
+                        artifactId: '${ArtifactId}', 
                         classifier: '', 
                         file: 'target/VinayDevOpsLab-0.0.8-SNAPSHOT.war', 
                         type: 'war'
                     ]
                 ], 
                 credentialsId: 'Nexus', 
-                groupId: 'com.vinaysdevopslab', 
+                groupId: '${GroupId}', 
                 nexusUrl: '172.20.0.232:8081', 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
                 repository: 'AngelGoezLab-SNAPSHOT', 
-                version: '0.0.8-SNAPSHOT'
+                version: '${Version}'
               }
         }
         
