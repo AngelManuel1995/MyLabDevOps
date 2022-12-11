@@ -4,6 +4,12 @@ pipeline{
     tools {
         maven 'maven'
     }
+    
+    environment {
+        artifactId = readMavenPom().getArtifactId()
+        version    = readMavenPom().getVersion()
+        name       = readMavenPom().getName()
+    }
 
     stages {
         // Specify various stage with in stages
@@ -41,6 +47,12 @@ pipeline{
                 repository: 'AngelGoezLab-SNAPSHOT', 
                 version: '0.0.8-SNAPSHOT'
               }
+        }
+        
+        stage('Show Environment variables') {
+            steps {
+                echo "'$artifactId' $version $name"
+            }
         }
 
        // Stage3 : Publish the source code to Sonarqube
