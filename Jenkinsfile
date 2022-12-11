@@ -31,23 +31,26 @@ pipeline{
         }
         
         stage('Publish to nexus') {
-              steps {
-                nexusArtifactUploader artifacts: [
-                    [ 
-                        artifactId: "${ArtifactId}", 
-                        classifier: '', 
-                        file: 'target/VinayDevOpsLab-0.0.8-SNAPSHOT.war', 
-                        type: 'war'
-                    ]
-                ], 
-                credentialsId: 'Nexus', 
-                groupId: "${GroupId}", 
-                nexusUrl: '172.20.0.232:8081', 
-                nexusVersion: 'nexus3', 
-                protocol: 'http', 
-                repository: 'AngelGoezLab-SNAPSHOT', 
-                version: "${Version}"
-              }
+            steps {
+                script {
+                    def NexusRepo = Version.endsWith("SNAPSHOT") ? "AngelGoezLab-SNAPSHOT" : "AngelGoezLab-RELEASE"
+                    nexusArtifactUploader artifacts: [
+                        [ 
+                            artifactId: "${ArtifactId}", 
+                            classifier: '', 
+                            file: 'target/VinayDevOpsLab-0.0.8-SNAPSHOT.war', 
+                            type: 'war'
+                        ]
+                    ], 
+                    credentialsId: 'Nexus', 
+                    groupId: "${GroupId}", 
+                    nexusUrl: '172.20.0.232:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: "${NexusRepo}", 
+                    version: "${Version}"
+                  }      
+             }
         }
         
         stage('Show Environment variables') {
