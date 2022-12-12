@@ -81,7 +81,7 @@ pipeline{
             }
         }
         
-         stage('Deploy') {
+         stage('Deploy Docker') {
             steps {
                 sshPublisher(
                     publishers: [
