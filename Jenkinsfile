@@ -68,7 +68,7 @@ pipeline{
                             transfers: [
                                 sshTransfer(
                                     cleanRemote: false, 
-                                    execCommand: 'ansible-playbook /opt/playbooks/download-and-deploy.yaml -i hosts', 
+                                    execCommand: 'ansible-playbook /opt/playbooks/download-and-deploy.yaml -i /opt/playbooks/hosts', 
                                     execTimeout: 120000
                                 )
                             ], 
